@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-const https = require("https");
+const https = require('https');
 
 
 app.use(bodyParser.json());
@@ -19,8 +19,13 @@ app.use(cors());
 app.post('/api/search', (req, res) => {
     console.log('req.body: %o', req.body);
     params = encodeURIComponent(req.body.name);
-    if(req.body && req.body.page) params += "&page=" + req.body.page;
-    if(req.body && req.body.pageSize) params += "&per_page=" + req.body.pageSize;
+    if(req.body && req.body.repos) params += '+repos:%3E' + req.body.repos;
+    if(req.body && req.body.followers) params += '+followers:%3E' + req.body.followers;
+    if(req.body && req.body.location) params += '+location:' + encodeURIComponent(req.body.location);
+    if(req.body && req.body.sort) params += '&sort=' + req.body.sort;
+    if(req.body && req.body.sort && req.body.order) params += '&order=' + req.body.order;
+    if(req.body && req.body.page) params += '&page=' + req.body.page;
+    if(req.body && req.body.pageSize) params += '&per_page=' + req.body.pageSize;
     console.log('params: %o', params);
     var options = {
         host: 'api.github.com',
@@ -30,11 +35,11 @@ app.post('/api/search', (req, res) => {
     };
     var request = https.request(options, function(response) {
         var body = '';
-        response.on("data", function(chunk) {
+        response.on('data', function(chunk) {
             body += chunk.toString('utf8');
         });
     
-        response.on("end", function() {
+        response.on('end', function() {
             var parsed = JSON.parse(body);
             res.json(parsed);
         });
@@ -51,10 +56,10 @@ app.get('/api/details/:username', (req, res) => {
     };
     var request = https.request(options, (response) => {
         var body = '';
-        response.on("data", function(chunk) {
+        response.on('data', function(chunk) {
             body += chunk.toString('utf8');
         });
-        response.on("end", function() {
+        response.on('end', function() {
             var parsed = JSON.parse(body);
             res.json(parsed);
         });
