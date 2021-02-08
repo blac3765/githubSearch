@@ -1,0 +1,25 @@
+.top-center-search {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-search {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50vh;
+}
+
+.row, .full-width {
+    width: 100% !important;
+}
+
+.load-bar {
+    margin: 3vh;
+}
+
+@media only screen and (max-width: 600px) {
+    .row {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
