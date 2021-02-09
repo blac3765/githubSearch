@@ -12,7 +12,7 @@ const port = process.env.PORT || 8001;
 
 app.listen(port);
 console.log('listening at port: %j', port);
-app.use('/', express.static('./client'));
+app.use('/', express.static('./client/dist/client'));
 app.use(cors());
 
 app.post('/api/search', (req, res) => {
