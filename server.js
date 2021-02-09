@@ -15,7 +15,6 @@ console.log('listening at port: %j', port);
 app.use('/', express.static('./client'));
 app.use(cors());
 
-
 app.post('/api/search', (req, res) => {
     console.log('req.body: %o', req.body);
     params = encodeURIComponent(req.body.name);

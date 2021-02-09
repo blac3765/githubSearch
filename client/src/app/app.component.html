@@ -7,6 +7,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0 center-small" type="submit" (click)="search()" id="searchButton" [disabled]="!params.name">Search</button>
         </form>
       </div>
+      <br>
       <div class="row center" *ngIf="response && !loading">
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,7 +86,10 @@
     </div>
   </div>
   <div class="row">
-    <div *ngIf="response && !loading" class="full-width">
+    <div class="center" *ngIf="response && !response.total_count">
+      No Results Found!
+    </div>
+    <div *ngIf="response && response.total_count && !loading" class="full-width">
       <div *ngFor="let user of response.items; let i = index" class="accordion" id="accordionExample">
         <div class="card">
           <div class="card-header" id="headingOne">
